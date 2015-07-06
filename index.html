@@ -25,7 +25,7 @@
     </head>
 
 
-    <body ng-controller="oneCtrl">
+    <body>
         <div id="wrapper" class="container">
             <header>
                 <div id="header" class="section">
@@ -52,70 +52,54 @@
                 </div>
             </header>
 
-            <div id='uploadFile' >
-                <h1 class="ui-widget-header">
-                    File Upload
-                </h1>
-                  <div class="brand_container ui-widget-content">
-                    <input type="file" name="excel_file" accept=".xls" onchange="angular.element(this).scope().fileChanged(this.files);" required="true">
-                  </div>          
+
+            <div ng-controller="BrandController">
+                <div id='uploadFile'>
+                    <h1 class="ui-widget-header">
+                        File Upload
+                    </h1>
+                    <div class="brand_container ui-widget-content">
+                        <input type="file" name="excel_file" accept=".xls" onchange="angular.element(this).scope().fileChanged(this.files);" required="true">
+                    </div>
                 </div>
 
                 <div class="btn_container">
-                  <button type="submit" value="Submit">Submit</button>
-                  <button type="cancel" value="Cancel">Cancel</button>
+                    <button type="submit" value="Submit">Submit</button>
+                    <button type="cancel" value="Cancel">Cancel</button>
 
-                  <button class="lucky" type="lucky" value="Lucky">I am feeling Lucky</button>
+                    <button add-div>Add Group</button>
+                    <input type="text" name="input" ng-model="shared.textGroup"/>
+
+                    <button class="lucky" type="lucky" value="Lucky">I am feeling Lucky</button>
                 </div>
 
-
-            <div id="brands">
-                <h1 class="ui-widget-header">
-                    Brands
-                </h1>
-                <div class="brand_container ui-widget-content">
-                    <select ng-options="column.Brand for column in columns | unique:'Brand'" ng-model="brand" ng-change="update(brand)"></select>
+                <div id="brands">
+                    <h1 class="ui-widget-header">
+                        Brands
+                    </h1>
+                    <div class="brand_container ui-widget-content">
+                        <select ng-options="column.Brand for column in columns | unique:'Brand'" ng-model="brand" ng-change="update(brand)"></select>
+                    </div>
                 </div>
             </div>
 
-            <div ng-show="showDropDown">
+            <div ng-controller="ProductController">
+                <div ng-show="shared.showProducts">
 
-                <div id="products">
-                    <h1 class="ui-widget-header">
-                        Products
-                    </h1>
-                    <div id="catalog">
-                        <ul class="ulProduct">
-                            <li ng-repeat='product in list1 track by $index' data-drag="true" data-jqyoui-options="{revert: 'invalid', helper: 'clone'}" ng-model="list1" jqyoui-draggable="{index: {{$index}}, animate: true, placeholder: 'keep'}"><div class="productCount">{{$index +1}}. </div> <div class="productDesc">{{product}}</div>
-                            </li>
-                        </ul>
+                    <div id="products">
+                        <h1 class="ui-widget-header">
+                            Products
+                        </h1>
+                        <div id="catalog">
+                            <ul class="ulProduct">
+                                <li ng-repeat='product in shared.list track by $index' data-drag="true" data-jqyoui-options="{revert: 'invalid', helper: 'clone'}" ng-model="shared.list" jqyoui-draggable="{index: {{$index}}, animate: true, placeholder: 'keep'}"><div class="productCount">{{$index +1}}. </div> <div class="productDesc">{{product}}</div>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
-                </div>
-                <div id="cart">
-                  <h1 class="ui-widget-header">
-                    Product Groups
-                  </h1>
 
-                  <div class="ui-widget-content">
-                      <ol data-drop="true" ng-model='list4' jqyoui-droppable="{multiple:true}">
-                          <li ng-repeat="item in list4 track by $index" ng-show="item" data-drag="true" data-jqyoui-options="{revert: 'invalid', helper: 'clone'}" ng-model="list4" jqyoui-draggable="{index: {{$index}},animate:true}">{{item}}
-                          </li>
-                          <li class="placeholder" ng-hide="hideMe()">Add your items here
-                          </li>
-                      </ol>
-                  </div>
-                </div>
-                <div id="variant">
-                    <h1 class="ui-widget-header">
-                      Variant
-                    </h1>
-                    <div class="ui-widget-content">
-                        <ol data-drop="true" ng-model='list5' jqyoui-droppable="{multiple:true}">
-                            <li ng-repeat="item in list5 track by $index" ng-show="item.title" data-drag="true" data-jqyoui-options="{revert: 'invalid', helper: 'clone'}" ng-model="list4" jqyoui-draggable="{index: {{$index}},animate:true}">{{item.title}}
-                            </li>
-                            <li class="placeholder" ng-hide="hideMe()">Add your items here
-                            </li>
-                        </ol>
+                    <div id="cart">
+                      <div id="group-container"></div>
                     </div>
                 </div>
             </div>
